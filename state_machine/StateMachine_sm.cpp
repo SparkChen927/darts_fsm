@@ -5,8 +5,7 @@
 // from file : StateMachine.sm
 //
 
-#include "rm_fsm/StateMachine.h"
-#include <rm_msgs/DbusData.h>
+#include "darts_fsm/StateMachine.h"
 #include "StateMachine_sm.h"
 
 using namespace statemap;

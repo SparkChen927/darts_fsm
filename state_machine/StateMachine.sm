@@ -1,6 +1,6 @@
 %start StateMachineMap::Idle
 %class StateMachine
-%header rm_fsm/StateMachine.h
+%header darts_fsm/StateMachine.h
 
 %map StateMachineMap
 %%
