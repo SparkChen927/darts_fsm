@@ -22,7 +22,11 @@ void StateMachine::initReady() {
   ROS_INFO("Enter Ready");
 }
 
-void StateMachine::Ready(rm_msgs::DbusData data_dbus_) {
+void StateMachine::Ready() {
+
+}
+
+void StateMachine::getReady(rm_msgs::DbusData data_dbus_) {
   if (data_dbus_.s_r == rm_msgs::DbusData::UP)
   {
     shooter_cmd_sender_->setMode(rm_msgs::ShootCmd::SPEED_30M_PER_SECOND);

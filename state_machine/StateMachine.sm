@@ -17,16 +17,16 @@
 Idle
 {
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
-        [ context.isAim(data_dbus_) == true ]
+        [ ctxt.isAim(data_dbus_) == true ]
         Aim
         {
             initAim();
         }
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
-        [ context.isReady(data_dbus_) == true ]
+        [ ctxt.isReady(data_dbus_) == true ]
         Ready
         {
-            initReady(rm_msgs::DbusData data_dbus_);
+            initReady();
         }
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
         nil {}
@@ -47,19 +47,19 @@ Ready
     }
 {
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
-        [ context.isAim(data_dbus_) == true ]
+        [ ctxt.isAim(data_dbus_) == true ]
         Aim
         {
             initAim();
         }
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
-        [ context.isPush(data_dbus_) == true ]
+        [ ctxt.isPush(data_dbus_) == true ]
         Push
         {
             initPush();
         }
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
-        [ context.isBack(data_dbus_) == true ]
+        [ ctxt.isBack(data_dbus_) == true ]
         Back
         {
             initBack();
@@ -74,16 +74,16 @@ Push
     }
 {
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
-        [ context.isAim(data_dbus_) == true ]
+        [ ctxt.isAim(data_dbus_) == true ]
         Aim
         {
             initAim();
         }
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
-        [ context.isReady(data_dbus_) == true ]
+        [ ctxt.isReady(data_dbus_) == true ]
         Ready
         {
-            initReady(rm_msgs::DbusData data_dbus_);
+            initReady();
         }
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
         nil {}
@@ -95,13 +95,13 @@ Back
     }
 {
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
-        [ context.isAim(data_dbus_) == true ]
+        [ ctxt.isAim(data_dbus_) == true ]
         Aim
         {
             initAim();
         }
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
-        [ context.isPush(data_dbus_) == true ]
+        [ ctxt.isPush(data_dbus_) == true ]
         Push
         {
             initPush();

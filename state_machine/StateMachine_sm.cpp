@@ -35,7 +35,7 @@ void StateMachineMap_Idle::dbusUpdate(StateMachineContext& context, rm_msgs::Dbu
 {
     StateMachine& ctxt = context.getOwner();
 
-    if ( context.isAim(data_dbus_) == true )
+    if ( ctxt.isAim(data_dbus_) == true )
     {
         context.getState().Exit(context);
         context.clearState();
@@ -51,14 +51,14 @@ void StateMachineMap_Idle::dbusUpdate(StateMachineContext& context, rm_msgs::Dbu
         }
         context.getState().Entry(context);
     }
-    else if ( context.isReady(data_dbus_) == true )
+    else if ( ctxt.isReady(data_dbus_) == true )
 
     {
         context.getState().Exit(context);
         context.clearState();
         try
         {
-            ctxt.initReady(rm_msgs::DbusData data_dbus_);
+            ctxt.initReady();
             context.setState(StateMachineMap::Ready);
         }
         catch (...)
@@ -98,7 +98,7 @@ void StateMachineMap_Ready::dbusUpdate(StateMachineContext& context, rm_msgs::Db
 {
     StateMachine& ctxt = context.getOwner();
 
-    if ( context.isAim(data_dbus_) == true )
+    if ( ctxt.isAim(data_dbus_) == true )
     {
         context.getState().Exit(context);
         context.clearState();
@@ -114,7 +114,7 @@ void StateMachineMap_Ready::dbusUpdate(StateMachineContext& context, rm_msgs::Db
         }
         context.getState().Entry(context);
     }
-    else if ( context.isPush(data_dbus_) == true )
+    else if ( ctxt.isPush(data_dbus_) == true )
 
     {
         context.getState().Exit(context);
@@ -131,7 +131,7 @@ void StateMachineMap_Ready::dbusUpdate(StateMachineContext& context, rm_msgs::Db
         }
         context.getState().Entry(context);
     }
-    else if ( context.isBack(data_dbus_) == true )
+    else if ( ctxt.isBack(data_dbus_) == true )
 
     {
         context.getState().Exit(context);
@@ -163,7 +163,7 @@ void StateMachineMap_Push::dbusUpdate(StateMachineContext& context, rm_msgs::Dbu
 {
     StateMachine& ctxt = context.getOwner();
 
-    if ( context.isAim(data_dbus_) == true )
+    if ( ctxt.isAim(data_dbus_) == true )
     {
         context.getState().Exit(context);
         context.clearState();
@@ -179,14 +179,14 @@ void StateMachineMap_Push::dbusUpdate(StateMachineContext& context, rm_msgs::Dbu
         }
         context.getState().Entry(context);
     }
-    else if ( context.isReady(data_dbus_) == true )
+    else if ( ctxt.isReady(data_dbus_) == true )
 
     {
         context.getState().Exit(context);
         context.clearState();
         try
         {
-            ctxt.initReady(rm_msgs::DbusData data_dbus_);
+            ctxt.initReady();
             context.setState(StateMachineMap::Ready);
         }
         catch (...)
@@ -211,7 +211,7 @@ void StateMachineMap_Back::dbusUpdate(StateMachineContext& context, rm_msgs::Dbu
 {
     StateMachine& ctxt = context.getOwner();
 
-    if ( context.isAim(data_dbus_) == true )
+    if ( ctxt.isAim(data_dbus_) == true )
     {
         context.getState().Exit(context);
         context.clearState();
@@ -227,7 +227,7 @@ void StateMachineMap_Back::dbusUpdate(StateMachineContext& context, rm_msgs::Dbu
         }
         context.getState().Entry(context);
     }
-    else if ( context.isPush(data_dbus_) == true )
+    else if ( ctxt.isPush(data_dbus_) == true )
 
     {
         context.getState().Exit(context);

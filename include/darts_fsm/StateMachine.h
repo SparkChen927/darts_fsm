@@ -45,7 +45,8 @@ public:
   void Aim();
 
   void initReady();
-  void Ready(rm_msgs::DbusData data_dbus_);
+  void Ready();
+  void getReady(rm_msgs::DbusData data_dbus_);
 
   void initPush();
   void Push();
