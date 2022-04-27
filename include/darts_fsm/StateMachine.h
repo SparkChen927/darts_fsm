@@ -3,15 +3,14 @@
 //
 #pragma once
 
-//#include "StateMachine_sm.h"
+#include "StateMachine_sm.h"
 #include <ros/ros.h>
 #include <rm_msgs/DbusData.h>
 #include <effort_controllers/joint_velocity_controller.h>
 #include <effort_controllers/joint_position_controller.h>
-#include <rm_common/ros_utilities.h>
-#include <rm_msgs/ShootCmd.h>
-#include <hardware_interface/joint_command_interface.h>
 #include <rm_common/decision/command_sender.h>
+#include <rm_common/decision/controller_manager.h>
+#include <rm_common/referee/referee.h>
 
 class StateMachine{
 public:
@@ -43,13 +42,23 @@ public:
   }
 
   void initAim();
+  void Aim();
 
-  void initReady(rm_msgs::DbusData data_dbus_);
+  void initReady();
+  void Ready(rm_msgs::DbusData data_dbus_);
 
   void initPush();
+  void Push();
 
   void initBack();
+  void Back();
+
+protected:
+  StateMachineContext context_;
 
 private:
   rm_common::ShooterCommandSender *shooter_cmd_sender_{};
+  rm_common::ControllerManager controller_manager_;
+  ros::NodeHandle nh_;
+  rm_common::RefereeData data_;
 };

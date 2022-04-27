@@ -5,111 +5,109 @@
 %map StateMachineMap
 %%
 
+// Syntax:
+//
+// State {
+//  TransitionEvent
+//      [guard]
+//      NextState
+//      {Action}
+// }
+
 Idle
 {
-    //
-        [ 1 ]
+    dbusUpdate(data_dbus_: rm_msgs::DbusData)
+        [ context.isAim(data_dbus_) == true ]
         Aim
         {
             initAim();
         }
-    //
-        [ 1 ]
+    dbusUpdate(data_dbus_: rm_msgs::DbusData)
+        [ context.isReady(data_dbus_) == true ]
         Ready
         {
             initReady(rm_msgs::DbusData data_dbus_);
         }
-    //
+    dbusUpdate(data_dbus_: rm_msgs::DbusData)
         nil {}
 }
 
 Aim
     Entry {
-            //
+            Aim();
     }
 {
-        nil
-        {
-            //
-        }
+    dbusUpdate(data_dbus_: rm_msgs::DbusData)
+        nil {}
 }
 
 Ready
     Entry {
-            //
+            Ready();
     }
 {
-    //
-        [ 1 ]
+    dbusUpdate(data_dbus_: rm_msgs::DbusData)
+        [ context.isAim(data_dbus_) == true ]
         Aim
         {
             initAim();
         }
-    //
-        [ 1 ]
+    dbusUpdate(data_dbus_: rm_msgs::DbusData)
+        [ context.isPush(data_dbus_) == true ]
         Push
         {
             initPush();
         }
-    //
-        [ 1 ]
+    dbusUpdate(data_dbus_: rm_msgs::DbusData)
+        [ context.isBack(data_dbus_) == true ]
         Back
         {
             initBack();
         }
-    //
-        nil
-        {
-            //
-        }
+    dbusUpdate(data_dbus_: rm_msgs::DbusData)
+        nil {}
 }
 
 Push
     Entry {
-            //
+            Push();
     }
 {
-    //
-        [ 1 ]
+    dbusUpdate(data_dbus_: rm_msgs::DbusData)
+        [ context.isAim(data_dbus_) == true ]
         Aim
         {
             initAim();
         }
-    //
-        [ 1 ]
+    dbusUpdate(data_dbus_: rm_msgs::DbusData)
+        [ context.isReady(data_dbus_) == true ]
         Ready
         {
             initReady(rm_msgs::DbusData data_dbus_);
         }
-    //
-        nil
-        {
-            //
-        }
+    dbusUpdate(data_dbus_: rm_msgs::DbusData)
+        nil {}
 }
 
 Back
     Entry {
-            //
+            Back();
     }
 {
-    //
-        [ 1 ]
+    dbusUpdate(data_dbus_: rm_msgs::DbusData)
+        [ context.isAim(data_dbus_) == true ]
         Aim
         {
             initAim();
         }
-    //
-        [ 1 ]
+    dbusUpdate(data_dbus_: rm_msgs::DbusData)
+        [ context.isPush(data_dbus_) == true ]
         Push
         {
             initPush();
         }
-    //
-        nil
-        {
-            //
-        }
+    dbusUpdate(data_dbus_: rm_msgs::DbusData)
+        nil {}
 }
 
 Default
