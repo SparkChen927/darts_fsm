@@ -6,6 +6,7 @@
 //
 
 #include "rm_fsm/StateMachine.h"
+#include <rm_msgs/DbusData.h>
 #include "StateMachine_sm.h"
 
 using namespace statemap;

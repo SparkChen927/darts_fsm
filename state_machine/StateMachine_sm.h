@@ -12,6 +12,7 @@
 #define SMC_USES_IOSTREAMS
 
 #include <statemap.h>
+#include <rm_msgs/DbusData.h>
 
 // Forward declarations.
 class StateMachineMap;
