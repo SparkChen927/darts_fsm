@@ -17,7 +17,7 @@ Idle
         [ 1 ]
         Ready
         {
-            initReady();
+            initReady(rm_msgs::DbusData data_dbus_);
         }
     //
         nil {}
@@ -79,7 +79,7 @@ Push
         [ 1 ]
         Ready
         {
-            initReady();
+            initReady(rm_msgs::DbusData data_dbus_);
         }
     //
         nil
