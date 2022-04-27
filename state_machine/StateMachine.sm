@@ -1,0 +1,119 @@
+%start StateMachineMap::Idle
+%class StateMachine
+%header rm_fsm/StateMachine.h
+
+%map StateMachineMap
+%%
+
+Idle
+{
+    //
+        [ 1 ]
+        Aim
+        {
+            initAim();
+        }
+    //
+        [ 1 ]
+        Ready
+        {
+            initReady();
+        }
+    //
+        nil {}
+}
+
+Aim
+    Entry {
+            //
+    }
+{
+        nil
+        {
+            //
+        }
+}
+
+Ready
+    Entry {
+            //
+    }
+{
+    //
+        [ 1 ]
+        Aim
+        {
+            initAim();
+        }
+    //
+        [ 1 ]
+        Push
+        {
+            initPush();
+        }
+    //
+        [ 1 ]
+        Back
+        {
+            initBack();
+        }
+    //
+        nil
+        {
+            //
+        }
+}
+
+Push
+    Entry {
+            //
+    }
+{
+    //
+        [ 1 ]
+        Aim
+        {
+            initAim();
+        }
+    //
+        [ 1 ]
+        Ready
+        {
+            initReady();
+        }
+    //
+        nil
+        {
+            //
+        }
+}
+
+Back
+    Entry {
+            //
+    }
+{
+    //
+        [ 1 ]
+        Aim
+        {
+            initAim();
+        }
+    //
+        [ 1 ]
+        Push
+        {
+            initPush();
+        }
+    //
+        nil
+        {
+            //
+        }
+}
+
+Default
+{
+}
+
+%%
