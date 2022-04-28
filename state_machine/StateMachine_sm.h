@@ -17,7 +17,6 @@
 // Forward declarations.
 class StateMachineMap;
 class StateMachineMap_Idle;
-class StateMachineMap_Aim;
 class StateMachineMap_Ready;
 class StateMachineMap_Push;
 class StateMachineMap_Back;
@@ -50,7 +49,6 @@ class StateMachineMap
 public:
 
     static StateMachineMap_Idle Idle;
-    static StateMachineMap_Aim Aim;
     static StateMachineMap_Ready Ready;
     static StateMachineMap_Push Push;
     static StateMachineMap_Back Back;
@@ -75,18 +73,6 @@ public:
     : StateMachineMap_Default(name, stateId)
     {};
 
-    virtual void dbusUpdate(StateMachineContext& context, rm_msgs::DbusData data_dbus_);
-};
-
-class StateMachineMap_Aim :
-    public StateMachineMap_Default
-{
-public:
-    StateMachineMap_Aim(const char * const name, const int stateId)
-    : StateMachineMap_Default(name, stateId)
-    {};
-
-    virtual void Entry(StateMachineContext&);
     virtual void dbusUpdate(StateMachineContext& context, rm_msgs::DbusData data_dbus_);
 };
 

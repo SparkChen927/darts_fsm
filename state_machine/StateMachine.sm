@@ -17,28 +17,19 @@
 Idle
 {
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
-        [ ctxt.isAim(data_dbus_) == true ]
-        Aim
-        {
-            initAim();
-        }
-    dbusUpdate(data_dbus_: rm_msgs::DbusData)
         [ ctxt.isReady(data_dbus_) == true ]
         Ready
         {
             initReady();
         }
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
-        nil {}
-}
-
-Aim
-    Entry {
-            Aim();
-    }
-{
+        [ ctxt.isBack(data_dbus_) == true ]
+        Back
+        {
+            initBack();
+        }
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
-        nil {}
+            nil {}
 }
 
 Ready
@@ -46,12 +37,6 @@ Ready
             Ready();
     }
 {
-    dbusUpdate(data_dbus_: rm_msgs::DbusData)
-        [ ctxt.isAim(data_dbus_) == true ]
-        Aim
-        {
-            initAim();
-        }
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
         [ ctxt.isPush(data_dbus_) == true ]
         Push
@@ -74,12 +59,6 @@ Push
     }
 {
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
-        [ ctxt.isAim(data_dbus_) == true ]
-        Aim
-        {
-            initAim();
-        }
-    dbusUpdate(data_dbus_: rm_msgs::DbusData)
         [ ctxt.isReady(data_dbus_) == true ]
         Ready
         {
@@ -94,12 +73,6 @@ Back
             Back();
     }
 {
-    dbusUpdate(data_dbus_: rm_msgs::DbusData)
-        [ ctxt.isAim(data_dbus_) == true ]
-        Aim
-        {
-            initAim();
-        }
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
         [ ctxt.isPush(data_dbus_) == true ]
         Push

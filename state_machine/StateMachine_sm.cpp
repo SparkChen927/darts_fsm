@@ -12,10 +12,9 @@ using namespace statemap;
 
 // Static class declarations.
 StateMachineMap_Idle StateMachineMap::Idle("StateMachineMap::Idle", 0);
-StateMachineMap_Aim StateMachineMap::Aim("StateMachineMap::Aim", 1);
-StateMachineMap_Ready StateMachineMap::Ready("StateMachineMap::Ready", 2);
-StateMachineMap_Push StateMachineMap::Push("StateMachineMap::Push", 3);
-StateMachineMap_Back StateMachineMap::Back("StateMachineMap::Back", 4);
+StateMachineMap_Ready StateMachineMap::Ready("StateMachineMap::Ready", 1);
+StateMachineMap_Push StateMachineMap::Push("StateMachineMap::Push", 2);
+StateMachineMap_Back StateMachineMap::Back("StateMachineMap::Back", 3);
 
 void StateMachineState::dbusUpdate(StateMachineContext& context, rm_msgs::DbusData data_dbus_)
 {
@@ -35,24 +34,7 @@ void StateMachineMap_Idle::dbusUpdate(StateMachineContext& context, rm_msgs::Dbu
 {
     StateMachine& ctxt = context.getOwner();
 
-    if ( ctxt.isAim(data_dbus_) == true )
-    {
-        context.getState().Exit(context);
-        context.clearState();
-        try
-        {
-            ctxt.initAim();
-            context.setState(StateMachineMap::Aim);
-        }
-        catch (...)
-        {
-            context.setState(StateMachineMap::Aim);
-            throw;
-        }
-        context.getState().Entry(context);
-    }
-    else if ( ctxt.isReady(data_dbus_) == true )
-
+    if ( ctxt.isReady(data_dbus_) == true )
     {
         context.getState().Exit(context);
         context.clearState();
@@ -68,21 +50,23 @@ void StateMachineMap_Idle::dbusUpdate(StateMachineContext& context, rm_msgs::Dbu
         }
         context.getState().Entry(context);
     }
+    else if ( ctxt.isBack(data_dbus_) == true )
 
-}
-
-void StateMachineMap_Aim::Entry(StateMachineContext& context)
-
-{
-    StateMachine& ctxt = context.getOwner();
-
-    ctxt.Aim();
-}
-
-void StateMachineMap_Aim::dbusUpdate(StateMachineContext& context, rm_msgs::DbusData data_dbus_)
-{
-
-
+    {
+        context.getState().Exit(context);
+        context.clearState();
+        try
+        {
+            ctxt.initBack();
+            context.setState(StateMachineMap::Back);
+        }
+        catch (...)
+        {
+            context.setState(StateMachineMap::Back);
+            throw;
+        }
+        context.getState().Entry(context);
+    }
 
 }
 
@@ -98,24 +82,7 @@ void StateMachineMap_Ready::dbusUpdate(StateMachineContext& context, rm_msgs::Db
 {
     StateMachine& ctxt = context.getOwner();
 
-    if ( ctxt.isAim(data_dbus_) == true )
-    {
-        context.getState().Exit(context);
-        context.clearState();
-        try
-        {
-            ctxt.initAim();
-            context.setState(StateMachineMap::Aim);
-        }
-        catch (...)
-        {
-            context.setState(StateMachineMap::Aim);
-            throw;
-        }
-        context.getState().Entry(context);
-    }
-    else if ( ctxt.isPush(data_dbus_) == true )
-
+    if ( ctxt.isPush(data_dbus_) == true )
     {
         context.getState().Exit(context);
         context.clearState();
@@ -163,24 +130,7 @@ void StateMachineMap_Push::dbusUpdate(StateMachineContext& context, rm_msgs::Dbu
 {
     StateMachine& ctxt = context.getOwner();
 
-    if ( ctxt.isAim(data_dbus_) == true )
-    {
-        context.getState().Exit(context);
-        context.clearState();
-        try
-        {
-            ctxt.initAim();
-            context.setState(StateMachineMap::Aim);
-        }
-        catch (...)
-        {
-            context.setState(StateMachineMap::Aim);
-            throw;
-        }
-        context.getState().Entry(context);
-    }
-    else if ( ctxt.isReady(data_dbus_) == true )
-
+    if ( ctxt.isReady(data_dbus_) == true )
     {
         context.getState().Exit(context);
         context.clearState();
@@ -211,24 +161,7 @@ void StateMachineMap_Back::dbusUpdate(StateMachineContext& context, rm_msgs::Dbu
 {
     StateMachine& ctxt = context.getOwner();
 
-    if ( ctxt.isAim(data_dbus_) == true )
-    {
-        context.getState().Exit(context);
-        context.clearState();
-        try
-        {
-            ctxt.initAim();
-            context.setState(StateMachineMap::Aim);
-        }
-        catch (...)
-        {
-            context.setState(StateMachineMap::Aim);
-            throw;
-        }
-        context.getState().Entry(context);
-    }
-    else if ( ctxt.isPush(data_dbus_) == true )
-
+    if ( ctxt.isPush(data_dbus_) == true )
     {
         context.getState().Exit(context);
         context.clearState();
