@@ -54,6 +54,8 @@ public:
     context_.dbusUpdate(*dbus_data);
   }
 
+  void getReady(rm_msgs::DbusData data_dbus_);
+
 protected:
   StateMachineContext context_;
 
@@ -65,4 +67,6 @@ private:
   rm_common::RefereeData data_;
   rm_msgs::DbusData dbus_;
   effort_controllers::JointPositionController ctrl_trigger_;
+  effort_controllers::JointVelocityController ctrl_friction_l_, ctrl_friction_r_;
+  double unknown_num_;
 };

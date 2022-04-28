@@ -40,3 +40,18 @@ void StateMachine::Back() {
 
 }
 
+void StateMachine::getReady(rm_msgs::DbusData data_dbus_) {
+  if(data_dbus_.s_r == rm_msgs::DbusData::UP)
+  {
+    ctrl_trigger_.setCommand(unknown_num_);
+    ctrl_friction_l_.setCommand(unknown_num_);
+    ctrl_friction_r_.setCommand(unknown_num_);
+  }
+  else if(data_dbus_.s_r == rm_msgs::DbusData::MID)
+  {
+    ctrl_trigger_.setCommand(unknown_num_);
+    ctrl_friction_l_.setCommand(unknown_num_);
+    ctrl_friction_r_.setCommand(unknown_num_);
+  }
+}
+
