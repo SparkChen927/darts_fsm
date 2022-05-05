@@ -23,12 +23,12 @@ void StateMachine::Gimbal(const ros::Time& time, const ros::Duration& period) {
 
 void StateMachine::initReady() {
   ROS_INFO("Enter Ready");
-  if(s_struct_.s_r_ == rm_msgs::DbusData::UP)
+  if(s_struct_.data.s_r == rm_msgs::DbusData::UP)
   {
     ctrl_friction_l_.setCommand(config_.qd_15);
     ctrl_friction_r_.setCommand(-config_.qd_15);
   }
-  else if(s_struct_.s_r_ == rm_msgs::DbusData::MID)
+  else if(s_struct_.data.s_r == rm_msgs::DbusData::MID)
   {
     ctrl_friction_l_.setCommand(config_.qd_30);
     ctrl_friction_r_.setCommand(-config_.qd_30);
@@ -51,8 +51,8 @@ void StateMachine::initBack() {
                              2. * M_PI / static_cast<double>(push_per_rotation_)));
 }
 
-void StateMachine::commandCB(const rm_msgs::DbusData::_s_r_type &msg) {
-  s_struct_.s_r_ = msg;
+void StateMachine::commandCB(const rm_msgs::DbusData::ConstPtr &msg) {
+  s_struct_.data = *msg;
   cmd_rt_buffer_.writeFromNonRT(s_struct_);
 }
 

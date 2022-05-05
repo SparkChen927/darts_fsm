@@ -18,8 +18,7 @@ struct Config
 
 struct s
 {
-  rm_msgs::DbusData::_s_l_type s_l_;
-  rm_msgs::DbusData::_s_r_type s_r_;
+  rm_msgs::DbusData data;
 };
 
 class StateMachine{
@@ -60,7 +59,7 @@ public:
     context_.dbusUpdate(*dbus_data);
   }
 
-  void commandCB(const rm_msgs::DbusData::_s_r_type &msg);
+  void commandCB(const rm_msgs::DbusData::ConstPtr &msg);
 
 protected:
   StateMachineContext context_;
