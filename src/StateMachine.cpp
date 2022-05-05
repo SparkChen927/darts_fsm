@@ -3,11 +3,17 @@
 //
 #include "darts_fsm/StateMachine.h"
 
-StateMachine::StateMachine(ros::NodeHandle &nh) : context_(*this), controller_manager_(nh) {
+StateMachine::StateMachine(ros::NodeHandle &nh, ros::NodeHandle& controller_nh) : context_(*this) {
+  config_ = {
+             .qd_15 = getParam(controller_nh, "qd_15", 0.),
+             .qd_30 = getParam(controller_nh, "qd_30", 0.),
+             .lf_extra_rotat_speed = getParam(controller_nh, "lf_extra_rotat_speed", 0.)
+  };
+  push_per_rotation_ = getParam(controller_nh, "push_per_rotation", 0);
   nh_ = ros::NodeHandle(nh);
   ros::NodeHandle gimbal_nh(nh_, "gimbal");
-  ros::NodeHandle shooter_nh(nh_, "shooter");
   gimbal_cmd_sender_ = new rm_common::GimbalCommandSender(gimbal_nh, data_);
+  ros::NodeHandle shooter_nh(nh_, "shooter");
   shooter_cmd_sender_ = new rm_common::ShooterCommandSender(shooter_nh, data_);
   dbus_sub_ = nh_.subscribe<rm_msgs::DbusData>("/dbus_data", 10, &StateMachine::dbusCB, this);
   context_.enterStartState();
@@ -25,13 +31,13 @@ void StateMachine::Ready() {
   getReady(dbus_data_);
   if(ch_r_state_ == 1)
   {
-    ctrl_friction_l_.setCommand(unknown_num_);
-    ctrl_friction_r_.setCommand(unknown_num_);
+    ctrl_friction_l_.setCommand(config_.qd_15 + config_.lf_extra_rotat_speed);
+    ctrl_friction_r_.setCommand(-config_.qd_15);
   }
   else if(ch_r_state_ == 2)
   {
-    ctrl_friction_l_.setCommand(unknown_num_);
-    ctrl_friction_r_.setCommand(unknown_num_);
+    ctrl_friction_l_.setCommand(config_.qd_30 + config_.lf_extra_rotat_speed);
+    ctrl_friction_r_.setCommand(-config_.qd_30);
   }
   else
   {
@@ -46,11 +52,13 @@ void StateMachine::initPush() {
 void StateMachine::Push() {
   if(ch_r_state_ == 1)
   {
-    ctrl_trigger_.setCommand(unknown_num_);
+    ctrl_trigger_.setCommand(ctrl_trigger_.command_struct_.position_ -
+                             2. * M_PI / static_cast<double>(push_per_rotation_));
   }
   else if(ch_r_state_ == 2)
   {
-    ctrl_trigger_.setCommand(unknown_num_);
+    ctrl_trigger_.setCommand(ctrl_trigger_.command_struct_.position_ -
+                             2. * M_PI / static_cast<double>(push_per_rotation_));
   }
 }
 
@@ -60,7 +68,8 @@ void StateMachine::initBack() {
 
 void StateMachine::Back() {
   shooter_cmd_sender_->setMode(rm_msgs::ShootCmd::STOP);
-  ctrl_trigger_.setCommand(-unknown_num_);
+  ctrl_trigger_.setCommand(-(ctrl_trigger_.command_struct_.position_ -
+                           2. * M_PI / static_cast<double>(push_per_rotation_)));
 }
 
 void StateMachine::getReady(rm_msgs::DbusData data_dbus_) {
