@@ -1,4 +1,7 @@
 darts_fsm:
   qd_15:
   qd_30:
-  ctrl_vel:
+  pos_yaw_1:
+  pos_pitch_1:
+  pos_yaw_2:
+  pos_pitch_2:
