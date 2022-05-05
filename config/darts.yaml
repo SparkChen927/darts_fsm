@@ -1,4 +1,4 @@
 darts_fsm:
-  push_per_rotation:
   qd_15:
   qd_30:
+  ctrl_vel:
