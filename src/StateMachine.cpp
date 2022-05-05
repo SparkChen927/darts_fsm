@@ -60,6 +60,7 @@ void StateMachine::initBack() {
 
 void StateMachine::Back() {
   shooter_cmd_sender_->setMode(rm_msgs::ShootCmd::STOP);
+  ctrl_trigger_.setCommand(-unknown_num_);
 }
 
 void StateMachine::getReady(rm_msgs::DbusData data_dbus_) {
