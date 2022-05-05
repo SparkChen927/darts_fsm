@@ -13,7 +13,7 @@
 
 struct Config
 {
-  double qd_15, qd_30, ctrl_vel;
+  double qd_15, qd_30, pos_raw_1, pos_pitch_1, pos_raw_2, pos_pitch_2;
 };
 
 struct s

@@ -7,7 +7,10 @@ StateMachine::StateMachine(ros::NodeHandle &nh, ros::NodeHandle& controller_nh) 
   config_ = {
       .qd_15 = getParam(controller_nh, "qd_15", 0.),
       .qd_30 = getParam(controller_nh, "qd_30", 0.),
-      .ctrl_vel = getParam(controller_nh, "ctrl_vel", 0.),
+      .pos_raw_1 = getParam(controller_nh, "pos_raw_1", 0.),
+      .pos_pitch_1 = getParam(controller_nh, "pos_pitch_1", 0.),
+      .pos_raw_2 = getParam(controller_nh, "pos_raw_2", 0.),
+      .pos_pitch_2 = getParam(controller_nh, "pos_pitch_2", 0.),
   };
   push_per_rotation_ = getParam(controller_nh, "push_per_rotation", 0);
   dbus_sub_ = nh_.subscribe<rm_msgs::DbusData>("/dbus_data", 10, &StateMachine::dbusCB, this);
@@ -15,8 +18,6 @@ StateMachine::StateMachine(ros::NodeHandle &nh, ros::NodeHandle& controller_nh) 
 }
 
 void StateMachine::Gimbal(const ros::Time& time, const ros::Duration& period) {
-  ctrl_yaw_.setCommand(config_.ctrl_vel);
-  ctrl_pitch_.setCommand(config_.ctrl_vel);
   ctrl_yaw_.update(time, period);
   ctrl_pitch_.update(time, period);
 }
@@ -25,11 +26,15 @@ void StateMachine::initReady() {
   ROS_INFO("Enter Ready");
   if(s_struct_.data.s_r == rm_msgs::DbusData::UP)
   {
+    ctrl_yaw_.setCommand(config_.pos_raw_1);
+    ctrl_pitch_.setCommand(config_.pos_pitch_1);
     ctrl_friction_l_.setCommand(config_.qd_15);
     ctrl_friction_r_.setCommand(-config_.qd_15);
   }
   else if(s_struct_.data.s_r == rm_msgs::DbusData::MID)
   {
+    ctrl_yaw_.setCommand(config_.pos_raw_2);
+    ctrl_pitch_.setCommand(config_.pos_pitch_2);
     ctrl_friction_l_.setCommand(config_.qd_30);
     ctrl_friction_r_.setCommand(-config_.qd_30);
   }
