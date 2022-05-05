@@ -11,6 +11,8 @@ StateMachine::StateMachine(ros::NodeHandle &nh, ros::NodeHandle& controller_nh) 
       .pos_pitch_1 = getParam(controller_nh, "pos_pitch_1", 0.),
       .pos_yaw_2 = getParam(controller_nh, "pos_yaw_2", 0.),
       .pos_pitch_2 = getParam(controller_nh, "pos_pitch_2", 0.),
+      .pos = getParam(controller_nh, "pos", 0.),
+      .vel = getParam(controller_nh, "vel", 0.),
   };
   push_per_rotation_ = getParam(controller_nh, "push_per_rotation", 0);
   dbus_sub_ = nh_.subscribe<rm_msgs::DbusData>("/dbus_data", 10, &StateMachine::dbusCB, this);
@@ -18,6 +20,8 @@ StateMachine::StateMachine(ros::NodeHandle &nh, ros::NodeHandle& controller_nh) 
 }
 
 void StateMachine::Gimbal(const ros::Time& time, const ros::Duration& period) {
+  ctrl_yaw_.setCommand(config_.pos, config_.vel);
+  ctrl_pitch_.setCommand(config_.pos, config_.vel);
   ctrl_yaw_.update(time, period);
   ctrl_pitch_.update(time, period);
 }
