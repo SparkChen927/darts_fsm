@@ -66,7 +66,10 @@ private:
   ros::NodeHandle nh_;
   rm_common::RefereeData data_;
   rm_msgs::DbusData dbus_;
+  rm_msgs::DbusData dbus_data_;
   effort_controllers::JointPositionController ctrl_trigger_;
   effort_controllers::JointVelocityController ctrl_friction_l_, ctrl_friction_r_;
+  ros::Subscriber dbus_sub_;
   double unknown_num_;
+  int ch_r_state_;
 };

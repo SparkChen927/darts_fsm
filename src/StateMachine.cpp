@@ -9,6 +9,7 @@ StateMachine::StateMachine(ros::NodeHandle &nh) : context_(*this), controller_ma
   ros::NodeHandle shooter_nh(nh_, "shooter");
   gimbal_cmd_sender_ = new rm_common::GimbalCommandSender(gimbal_nh, data_);
   shooter_cmd_sender_ = new rm_common::ShooterCommandSender(shooter_nh, data_);
+  dbus_sub_ = nh_.subscribe<rm_msgs::DbusData>("/dbus_data", 10, &StateMachine::dbusCB, this);
   context_.enterStartState();
 }
 
@@ -21,7 +22,21 @@ void StateMachine::initReady() {
 }
 
 void StateMachine::Ready() {
-
+  getReady(dbus_data_);
+  if(ch_r_state_ == 1)
+  {
+    ctrl_friction_l_.setCommand(unknown_num_);
+    ctrl_friction_r_.setCommand(unknown_num_);
+  }
+  else if(ch_r_state_ == 2)
+  {
+    ctrl_friction_l_.setCommand(unknown_num_);
+    ctrl_friction_r_.setCommand(unknown_num_);
+  }
+  else
+  {
+    ROS_ERROR("Failed to get ready");
+  }
 }
 
 void StateMachine::initPush() {
@@ -29,7 +44,14 @@ void StateMachine::initPush() {
 }
 
 void StateMachine::Push() {
-  shooter_cmd_sender_->setMode(rm_msgs::ShootCmd::PUSH);
+  if(ch_r_state_ == 1)
+  {
+    ctrl_trigger_.setCommand(unknown_num_);
+  }
+  else if(ch_r_state_ == 2)
+  {
+    ctrl_trigger_.setCommand(unknown_num_);
+  }
 }
 
 void StateMachine::initBack() {
@@ -37,21 +59,17 @@ void StateMachine::initBack() {
 }
 
 void StateMachine::Back() {
-
+  shooter_cmd_sender_->setMode(rm_msgs::ShootCmd::STOP);
 }
 
 void StateMachine::getReady(rm_msgs::DbusData data_dbus_) {
   if(data_dbus_.s_r == rm_msgs::DbusData::UP)
   {
-    ctrl_trigger_.setCommand(unknown_num_);
-    ctrl_friction_l_.setCommand(unknown_num_);
-    ctrl_friction_r_.setCommand(unknown_num_);
+    ch_r_state_=1;
   }
   else if(data_dbus_.s_r == rm_msgs::DbusData::MID)
   {
-    ctrl_trigger_.setCommand(unknown_num_);
-    ctrl_friction_l_.setCommand(unknown_num_);
-    ctrl_friction_r_.setCommand(unknown_num_);
+    ch_r_state_=2;
   }
 }
 
