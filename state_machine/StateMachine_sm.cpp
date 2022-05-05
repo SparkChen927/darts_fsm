@@ -70,14 +70,6 @@ void StateMachineMap_Idle::dbusUpdate(StateMachineContext& context, rm_msgs::Dbu
 
 }
 
-void StateMachineMap_Ready::Entry(StateMachineContext& context)
-
-{
-    StateMachine& ctxt = context.getOwner();
-
-    ctxt.Ready();
-}
-
 void StateMachineMap_Ready::dbusUpdate(StateMachineContext& context, rm_msgs::DbusData data_dbus_)
 {
     StateMachine& ctxt = context.getOwner();
@@ -118,14 +110,6 @@ void StateMachineMap_Ready::dbusUpdate(StateMachineContext& context, rm_msgs::Db
 
 }
 
-void StateMachineMap_Push::Entry(StateMachineContext& context)
-
-{
-    StateMachine& ctxt = context.getOwner();
-
-    ctxt.Push();
-}
-
 void StateMachineMap_Push::dbusUpdate(StateMachineContext& context, rm_msgs::DbusData data_dbus_)
 {
     StateMachine& ctxt = context.getOwner();
@@ -147,14 +131,6 @@ void StateMachineMap_Push::dbusUpdate(StateMachineContext& context, rm_msgs::Dbu
         context.getState().Entry(context);
     }
 
-}
-
-void StateMachineMap_Back::Entry(StateMachineContext& context)
-
-{
-    StateMachine& ctxt = context.getOwner();
-
-    ctxt.Back();
 }
 
 void StateMachineMap_Back::dbusUpdate(StateMachineContext& context, rm_msgs::DbusData data_dbus_)

@@ -84,7 +84,6 @@ public:
     : StateMachineMap_Default(name, stateId)
     {};
 
-    virtual void Entry(StateMachineContext&);
     virtual void dbusUpdate(StateMachineContext& context, rm_msgs::DbusData data_dbus_);
 };
 
@@ -96,7 +95,6 @@ public:
     : StateMachineMap_Default(name, stateId)
     {};
 
-    virtual void Entry(StateMachineContext&);
     virtual void dbusUpdate(StateMachineContext& context, rm_msgs::DbusData data_dbus_);
 };
 
@@ -108,7 +106,6 @@ public:
     : StateMachineMap_Default(name, stateId)
     {};
 
-    virtual void Entry(StateMachineContext&);
     virtual void dbusUpdate(StateMachineContext& context, rm_msgs::DbusData data_dbus_);
 };
 

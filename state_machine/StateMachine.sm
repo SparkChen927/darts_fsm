@@ -33,9 +33,6 @@ Idle
 }
 
 Ready
-    Entry {
-            Ready();
-    }
 {
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
         [ ctxt.isPush(data_dbus_) == true ]
@@ -54,9 +51,6 @@ Ready
 }
 
 Push
-    Entry {
-            Push();
-    }
 {
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
         [ ctxt.isReady(data_dbus_) == true ]
@@ -69,9 +63,6 @@ Push
 }
 
 Back
-    Entry {
-            Back();
-    }
 {
     dbusUpdate(data_dbus_: rm_msgs::DbusData)
         [ ctxt.isPush(data_dbus_) == true ]
