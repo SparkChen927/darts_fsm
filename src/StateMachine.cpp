@@ -65,11 +65,11 @@ void StateMachine::Back() {
 void StateMachine::getReady(rm_msgs::DbusData data_dbus_) {
   if(data_dbus_.s_r == rm_msgs::DbusData::UP)
   {
-    ch_r_state_=1;
+    ch_r_state_ = 1;
   }
   else if(data_dbus_.s_r == rm_msgs::DbusData::MID)
   {
-    ch_r_state_=2;
+    ch_r_state_ = 2;
   }
 }
 
