@@ -22,7 +22,7 @@ The PACKAGE NAME package has been tested under [ROS] Indigo, Melodic and Noetic 
 
 [![Build Status](http://rsl-ci.ethz.ch/buildStatus/icon?job=ros_best_practices)](http://rsl-ci.ethz.ch/job/ros_best_practices/)
 
-![Example image](doc/example.jpg)
+![Example image](https://cdn.jsdelivr.net/gh/leggedrobotics/ros_best_practices@main/ros_package_template/doc/example.jpg)
 
 [comment]: <> (### Publications)
 
